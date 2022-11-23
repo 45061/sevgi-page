@@ -9,12 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@mantine/core": "^5.7.1",
+    "@mantine/hooks": "^5.7.1",
+    "@mantine/next": "^5.7.1",
+    "@tabler/icons": "^1.110.0",
+    "mongoose": "^6.7.1",
     "next": "13.0.1",
+    "next-redux-wrapper": "^8.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0",
+    "sass": "^1.56.0"
   },
   "devDependencies": {
     "eslint": "8.26.0",
-    "eslint-config-next": "13.0.1"
+    "eslint-config-next": "13.0.1",
+    "standard": "^17.0.0"
   }
 }
