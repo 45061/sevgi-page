@@ -1,4 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
+"use client";
+
+// import { useDispatch, useSelector } from "react-redux";
 
 import { Burger, Box, NavLink, Drawer } from "@mantine/core";
 import { IconBuildingSkyscraper } from "@tabler/icons";
@@ -9,11 +11,14 @@ import Image from "next/image";
 
 import styles from "../styles/components/Navbar.module.scss";
 import DrawerNav from "./DrawerNav";
+import { useState } from "react";
 
 export default function NavBar() {
-  const dispatch = useDispatch();
+  const [opened, setOpened] = useState(false);
 
-  const { showingHamburgerNav } = useSelector((state) => state.modalReducer);
+  // const dispatch = useDispatch();
+
+  // const { showingHamburgerNav } = useSelector((state) => state.modalReducer);
 
   return (
     <div className={styles.nav}>
@@ -23,8 +28,8 @@ export default function NavBar() {
       </div>
       <div className={styles.nav__navBar}>
         <Burger
-          opened={showingHamburgerNav}
-          onClick={() => dispatch(showHamburgerNav())}
+          opened={opened}
+          onClick={() => setOpened((o) => !o)}
           color="#d1aa65"
         />
         <Image src="/Sevgi.png" alt="Sevgi Logo" width={150} height={80} />
@@ -43,8 +48,8 @@ export default function NavBar() {
         </Box>
       </div>
       <Drawer
-        opened={showingHamburgerNav}
-        onClose={() => dispatch(showHamburgerNav())}
+        opened={opened}
+        onClose={() => setOpened((o) => !o)}
         size="xl"
         position="bottom"
       >
