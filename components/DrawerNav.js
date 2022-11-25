@@ -1,4 +1,5 @@
 import styles from "../styles/components/DrawerNav.module.scss";
+import MenuNavbar from "./MenuNavbar";
 import RoomsData from "./RoomsData";
 
 export default function DrawerNav() {
@@ -8,7 +9,7 @@ export default function DrawerNav() {
         <h2>Home</h2>
         <h2>Nosotros</h2>
         <h2>Contacto</h2>
-        <h2>Perfil</h2>
+        <MenuNavbar />
       </div>
       <div className={styles.rooms}>
         <RoomsData />
