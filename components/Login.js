@@ -3,27 +3,28 @@
 import Image from "next/image";
 import { useState } from "react";
 import styles from "../styles/components/Login.module.scss";
+import axios from "axios";
+import Link from "next/link";
 
 export default function Login() {
-  async function login({ email, password }) {
+  const [goodLogin, setGoodLogin] = useState(false);
+  async function login(loginData) {
     try {
       // const cookies = new Cookies();
-
-      const response = await fetch("/api/user/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      console.log("esto es data", data);
-      const { token } = data;
+      console.log("esto es loginData", loginData);
+      const response = await axios.post("/api/user/login", loginData);
+      // const data = await response.json();
+      if (response.status === 201) {
+        // router.push("/");
+        setGoodLogin(true);
+        console.log("saliendo");
+      }
+      console.log("esto es estatus", response.status);
 
       if (response.status === 403) {
         return console.log("error");
       }
-      console.log("ëste es token", token);
+      // console.log("ëste es token", token);
       // cookies.set("token", token, { path: "/", maxAge: 3600 * 1000 * 24 });
       // dispatch(hiddeLoginForm());
       // toast.success("Usuario ha realizado login con exito");
@@ -52,12 +53,29 @@ export default function Login() {
     event.preventDefault();
     // console.log("este es el formulario", loginData);
     // dispatch(
-    login({
-      email: loginData.email,
-      password: loginData.password,
-    });
+    login(loginData);
     // );
   };
+
+  if (goodLogin) {
+    return (
+      <form className={styles.login}>
+        <header className={styles.login__header}>
+          <div className={styles.login__brand}>
+            <Image src="/Sevgi.png" alt="Sevgi Logo" width={150} height={80} />
+          </div>
+          <div className={styles.login__title2}>
+            <h3> Login exitoso </h3>
+          </div>
+        </header>
+        <div className={styles.login__button2}>
+          <Link href="/">
+            <button className={styles.btn_action}>Inicio</button>
+          </Link>
+        </div>
+      </form>
+    );
+  }
 
   return (
     <form className={styles.login}>

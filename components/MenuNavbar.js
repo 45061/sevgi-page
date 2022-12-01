@@ -1,5 +1,6 @@
 import { Menu, Divider, createStyles, Modal } from "@mantine/core";
 import { UserCheck, UserOff, User } from "tabler-icons-react";
+import axios from "axios";
 // import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 // import dayjs from "dayjs";
@@ -20,7 +21,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function MenuNavbar() {
+export default function MenuNavbar(request) {
+  const isAuth = request.cookies.get("myTokenNAme");
   const [opened, setOpened] = useState(false);
   // const dispatch = useDispatch();
   // const thisDay = dayjs().$d.toString().substr(0, 24);
@@ -28,14 +30,19 @@ export default function MenuNavbar() {
   // const largeScreen = useMediaQuery("(min-width: 1024px)");
   // const { isAuth } = useSelector((state) => state.authReducer);
   // const { boxActive, balance } = useSelector((state) => state.boxReducer);
+  console.log("este es isAuth", isAuth);
 
   const { classes } = useStyles();
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
+    const response = await axios.get("/api/user/profile");
+    console.log(response);
     // dispatch(showLoginForm());
   };
-  const handleClick2 = (event) => {
+  const handleClick2 = async (event) => {
+    const response = await axios.post("/api/user/logout");
+    console.log(response);
     // event.preventDefault();
     // if (!boxActive) {
     //   return dispatch(logout());
@@ -85,7 +92,7 @@ export default function MenuNavbar() {
           <Divider />
 
           {/* <Link href="/userProfile"> */}
-          <Menu.Item icon={<User size={14} />}>Perfil</Menu.Item>
+          {/* <Menu.Item icon={<User size={14} />}>Perfil</Menu.Item> */}
           {/* </Link> */}
 
           <Menu.Item onClick={handleClick} icon={<User size={14} />}>
