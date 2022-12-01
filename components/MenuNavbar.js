@@ -84,9 +84,9 @@ export default function MenuNavbar() {
 
           <Divider />
 
-          <Link href="/userProfile">
-            <Menu.Item icon={<User size={14} />}>Perfil</Menu.Item>
-          </Link>
+          {/* <Link href="/userProfile"> */}
+          <Menu.Item icon={<User size={14} />}>Perfil</Menu.Item>
+          {/* </Link> */}
 
           <Menu.Item onClick={handleClick} icon={<User size={14} />}>
             Perfil

@@ -5,6 +5,36 @@ import { useState } from "react";
 import styles from "../styles/components/Login.module.scss";
 
 export default function Login() {
+  async function login({ email, password }) {
+    try {
+      // const cookies = new Cookies();
+
+      const response = await fetch("/api/user/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log("esto es data", data);
+      const { token } = data;
+
+      if (response.status === 403) {
+        return console.log("error");
+      }
+      console.log("ëste es token", token);
+      // cookies.set("token", token, { path: "/", maxAge: 3600 * 1000 * 24 });
+      // dispatch(hiddeLoginForm());
+      // toast.success("Usuario ha realizado login con exito");
+      // dispatch({ type: AUTH_SUCCESS, payload: data.user });
+    } catch (error) {
+      console.log("hay un gran error");
+      // dispatch({ type: AUTH_ERROR, payload: error });
+      // toast.error("Usuario o contraseña errada");
+    }
+  }
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -20,12 +50,12 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("este es el formulario", loginData);
+    // console.log("este es el formulario", loginData);
     // dispatch(
-    //   login({
-    //     email: loginData.email,
-    //     password: loginData.password,
-    //   })
+    login({
+      email: loginData.email,
+      password: loginData.password,
+    });
     // );
   };
 
